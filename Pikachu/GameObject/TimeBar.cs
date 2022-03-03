@@ -8,15 +8,18 @@ namespace Pikachu.GameObject
 {
 	internal class TimeBar : ScreenObject
 	{
-		readonly Pen pen = new(Color.WhiteSmoke);
+		readonly Pen pen = new(Color.Black);
 		readonly Brush brushFill = new SolidBrush(Color.Green);
-		readonly Brush brushText = new SolidBrush(Color.WhiteSmoke);
-		readonly Font font = new("tahoma", 12, FontStyle.Italic);
+		readonly Brush brushText = new SolidBrush(Color.Black);
+		readonly Font font = new("tahoma", 12, FontStyle.Italic | FontStyle.Bold);
 		readonly StringFormat stringFormat = new()
 		{
 			Alignment = StringAlignment.Center,
 			LineAlignment = StringAlignment.Center,
 		};
+
+		public int width;
+		public int height;
 
 		public long timeStart;
 
@@ -39,7 +42,7 @@ namespace Pikachu.GameObject
 			if (totalTime > 0)
 				widthFill = remaining * widthFill / totalTime;
 
-			g.FillRectangle(brushFill, x + 1, y + 1, widthFill, height - 2);
+			g.FillRectangle(brushFill, x + 1, y + 1, widthFill, height - 1);
 			g.DrawString($"{remaining}/{totalTime}", font, brushText, rectangle, stringFormat);
 		}
 

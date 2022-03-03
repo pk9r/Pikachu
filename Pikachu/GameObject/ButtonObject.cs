@@ -8,6 +8,9 @@ namespace Pikachu.GameObject
 {
 	internal abstract class ButtonObject : ScreenObject, IClickable
 	{
+		public int width;
+		public int height;
+
 		public bool Contains(int x, int y)
 		{
 			Rectangle rect = new(this.x, this.y, width, height);

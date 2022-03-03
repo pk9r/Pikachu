@@ -8,9 +8,12 @@ namespace Pikachu.GameObject
 {
 	internal class TimeLabel : ScreenObject
 	{
+		public int width;
+		public int height;
+
 		readonly string text = "TIME: ";
 		readonly Font font = new("tahoma", 12, FontStyle.Bold);
-		readonly Brush brush = new SolidBrush(Color.Red);
+		readonly Brush brush = new SolidBrush(Color.Black);
 		readonly StringFormat stringFormat = new()
 		{
 			Alignment = StringAlignment.Far,

@@ -39,7 +39,13 @@ namespace Pikachu
 
 		private void MainForm_MouseMove(object? sender, MouseEventArgs e)
 		{
-
+			foreach (var obj in GameObjectManagement.Instance.Clickables)
+			{
+				if (obj.Contains(e.Location))
+				{
+					Cursor.Current = Cursors.Hand;
+				}
+			}
 		}
 
 		private void MainForm_Click(object? sender, EventArgs e)
@@ -79,7 +85,7 @@ namespace Pikachu
 
 		private static void Draw(Graphics g)
 		{
-			g.Clear(Color.Black);
+			g.Clear(Color.White);
 
 			foreach (var obj in GameObjectManagement.Instance.Sens)
 			{

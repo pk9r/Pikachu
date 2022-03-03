@@ -20,13 +20,16 @@ namespace Pikachu.GameObject
 
 		private GameObjectManagement()
 		{
+			Sens.Add(background);
 			Sens.Add(exitButton);
 			Sens.Add(timeBar);
 			Sens.Add(timeLabel);
 			Sens.Add(newGameButton);
+			Sens.Add(gamePlay);
 
 			Clickables.Add(exitButton);
 			Clickables.Add(newGameButton);
+			Clickables.Add(gamePlay);
 
 			timeBar.Timeout += TimeBar_Timeout;
 		}
@@ -38,6 +41,14 @@ namespace Pikachu.GameObject
 
 		public static GameObjectManagement Instance => instance;
 		#endregion
+
+		public Background background = new()
+		{
+			width = 800,
+			height = 600,
+			x = 0,
+			y = 0,
+		};
 
 		public ExitButton exitButton = new()
 		{
@@ -70,6 +81,8 @@ namespace Pikachu.GameObject
 			x = 20,
 			y = 100,
 		};
+
+		public GamePlay gamePlay = new(150, 100);
 
 		public List<IScreenObject> Sens = new();
 		public List<IClickable> Clickables = new();

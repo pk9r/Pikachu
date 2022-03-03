@@ -8,8 +8,6 @@ namespace Pikachu.GameObject
 {
 	internal abstract class ScreenObject : IScreenObject
 	{
-		public int width;
-		public int height;
 		public int x;
 		public int y;
 

@@ -9,6 +9,7 @@ namespace Pikachu.GameControl
 {
 	internal class GameControlManagement
 	{
+		#region Singleton
 		private static readonly GameControlManagement instance = new();
 
 		// Explicit static constructor to tell C# compiler
@@ -22,6 +23,10 @@ namespace Pikachu.GameControl
 		}
 
 		public static GameControlManagement Instance => instance;
+		#endregion
+
+		readonly int row = 9;
+		readonly int col = 16;
 
 		public LevelGame CurrentLevel => LevelGame.GetLevelGame(indexCurrentLevel);
 
@@ -40,6 +45,7 @@ namespace Pikachu.GameControl
 		{
 			GameObjectManagement.Instance.timeBar.timeStart = DateTime.Now.Ticks;
 			GameObjectManagement.Instance.timeBar.totalTime = CurrentLevel.totalTime;
+			GameObjectManagement.Instance.gamePlay.LoadData(new int[GamePlay.row, GamePlay.col]);
 			isStarted = true;
 		}
 
