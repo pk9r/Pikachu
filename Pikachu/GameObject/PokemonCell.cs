@@ -1,4 +1,5 @@
-﻿using Pikachu.Extensions;
+﻿using Pikachu.DataObject;
+using Pikachu.Extensions;
 using Pikachu.GameControl;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Pikachu.GameObject
 		private static List<Bitmap?> LoadImages()
 		{
 			List<Bitmap?> images = new();
-			int length = 36;
+			int length = DataGamePlay.numOfType;
 			for (int i = 1; i <= length; i++)
 			{
 				images.Add(Properties.Resources.ResourceManager.GetObject($"pieces{i}") as Bitmap);
@@ -49,11 +50,7 @@ namespace Pikachu.GameObject
 		public int row;
 		public int col;
 
-		public int Value
-		{
-			get => GameControlManagement.Instance.dataGamePlay.data[row, col];
-			set => GameControlManagement.Instance.dataGamePlay.data[row, col] = value;
-		}
+		public int Value => GameControlManagement.Instance.dataGamePlay.data[row, col];
 
 		public override void Draw(Graphics g)
 		{

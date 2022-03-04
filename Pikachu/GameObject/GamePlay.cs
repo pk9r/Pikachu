@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Pikachu.GameObject
 {
 	/// <summary>Đối tượng hiển thị và nhận tương tác với các ô pokemon.</summary>
-	internal class GamePlay : ScreenObject, IClickable
+	internal class GamePlay : ScreenObject, IClickable, IUpdatable
 	{
 		/* Đây là bàn chơi tiêu chuẩn của pikachu classic
 		 * Đã phù hợp với kích thước form không nên thay đổi nếu không đổi kích thước form */
@@ -24,7 +24,7 @@ namespace Pikachu.GameObject
 		public int height;
 
 		public PokemonCell[,] pokemonCells;
-		public List<LineConnect> lineConnects;
+		public List<LineConnect> lineConnects = new();
 
 		public PokemonCell? cellFocus;
 		public PokemonCell? cellSelected1;
@@ -56,12 +56,7 @@ namespace Pikachu.GameObject
 		{
 			DrawPokemonCells(g);
 			DrawBorder(g);
-
-			if (lineConnects != null)
-				foreach (var line in lineConnects)
-				{
-					line.Draw(g);
-				}
+			DrawLineConnects(g);
 		}
 
 		public void OnClick(object? sender, EventArgs e)
@@ -94,6 +89,13 @@ namespace Pikachu.GameObject
 			return Contains(point.X, point.Y);
 		}
 
+		public void Update()
+		{
+			UpdateCell();
+			UpdateFocusCell();
+			UpdateLines();
+		}
+
 		/// <summary>Hiển thị các ô pokemon</summary>
 		/// <param name="g">The g.</param>
 		private void DrawPokemonCells(Graphics g)
@@ -109,6 +111,16 @@ namespace Pikachu.GameObject
 		private void DrawBorder(Graphics g)
 		{
 			g.DrawRectangle(pen, x, y, width, height);
+		}
+
+		/// <summary>Vẽ các đường thẳng kết nối cặp pokemon.</summary>
+		/// <param name="g">The g.</param>
+		private void DrawLineConnects(Graphics g)
+		{
+			foreach (var line in lineConnects)
+			{
+				line.Draw(g);
+			}
 		}
 
 		/// <summary>Lựa chọn một ô pokemon.</summary>
@@ -155,19 +167,8 @@ namespace Pikachu.GameObject
 			}
 		}
 
-		/// <summary>Cập nhập dữ liệu cho đối tượng.</summary>
-		public void Update()
-		{
-			UpdateCell();
-			UpdateFocusCell();
-			UpdateLines();
-		}
-
 		private void UpdateLines()
 		{
-			if (lineConnects == null)
-				return;
-
 			foreach (var line in lineConnects)
 			{
 				line.Update();

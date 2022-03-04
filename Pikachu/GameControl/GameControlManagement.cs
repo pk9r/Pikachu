@@ -59,6 +59,14 @@ namespace Pikachu.GameControl
 			isStarted = true;
 		}
 
+		/// <summary>Lựa chọn 1 cặp ô.</summary>
+		/// <param name="r1">The r1.</param>
+		/// <param name="c1">The c1.</param>
+		/// <param name="r2">The r2.</param>
+		/// <param name="c2">The c2.</param>
+		/// <returns>
+		///   <br />
+		/// </returns>
 		public List<LineConnect> SelectPair(int r1, int c1, int r2, int c2)
 		{
 			var lines = gamePlayChecker.GetLines(r1, c1, r2, c2);

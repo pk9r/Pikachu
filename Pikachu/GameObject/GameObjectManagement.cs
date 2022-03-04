@@ -44,7 +44,7 @@ namespace Pikachu.GameObject
 
 		public Background background = new()
 		{
-			width = 800,
+			width = 850,
 			height = 600,
 			x = 0,
 			y = 0,

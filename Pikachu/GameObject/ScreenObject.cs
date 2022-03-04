@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Đối tượng hiển thị trên màn hình.</summary>
 	internal abstract class ScreenObject : IScreenObject
 	{
 		public int x;

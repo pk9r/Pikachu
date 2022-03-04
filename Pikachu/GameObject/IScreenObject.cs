@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Đối tượng có thể hiển thị trên màn hình.</summary>
 	internal interface IScreenObject
 	{
 		/// <summary>Hiển thị đối tượng trên màn hình.</summary>

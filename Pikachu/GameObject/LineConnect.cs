@@ -10,7 +10,7 @@ namespace Pikachu.GameObject
 	internal class LineConnect : IScreenObject
 	{
 		readonly Pen pen = new(Color.Red, 5);
-		readonly int timeShow = 500;
+		readonly int timeShow = 5000;
 		readonly long timeStart;
 
 		public int r1, c1, r2, c2;

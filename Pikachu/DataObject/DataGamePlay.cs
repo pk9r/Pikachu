@@ -10,7 +10,7 @@ namespace Pikachu.DataObject
 	internal class DataGamePlay
 	{
 		/// <summary>Số lượng pokemon</summary>
-		public static readonly int numOfType = 36;
+		public static readonly int numOfType = 10;
 
 		/// <summary>Bảng dữ liệu của màn chơi.</summary>
 		public int[,] data;
@@ -18,6 +18,13 @@ namespace Pikachu.DataObject
 		public DataGamePlay(int row, int col)
 		{
 			data = new int[row, col];
+		}
+
+		public int GetValue(int row, int col)
+		{
+			if (row < 0 || col < 0 || row >= data.GetLength(0) || col >= data.GetLength(1))
+				return 0;
+			return data[row, col];
 		}
 
 		/// <summary>Tạo dữ liệu ngẫu nhiên mới.</summary>
