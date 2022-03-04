@@ -1,4 +1,5 @@
-﻿using Pikachu.GameObject;
+﻿using Pikachu.DataObject;
+using Pikachu.GameObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,13 @@ namespace Pikachu.GameControl
 		public static GameControlManagement Instance => instance;
 		#endregion
 
-		readonly int row = 9;
-		readonly int col = 16;
-
 		public LevelGame CurrentLevel => LevelGame.GetLevelGame(indexCurrentLevel);
 
 		public int indexCurrentLevel = 0;
 
 		public bool isStarted = false;
+
+		public DataGamePlay dataGamePlay = new(GamePlay.totalRows, GamePlay.totalColumns);
 
 		public void GameOver()
 		{
@@ -45,8 +45,17 @@ namespace Pikachu.GameControl
 		{
 			GameObjectManagement.Instance.timeBar.timeStart = DateTime.Now.Ticks;
 			GameObjectManagement.Instance.timeBar.totalTime = CurrentLevel.totalTime;
-			GameObjectManagement.Instance.gamePlay.LoadData(new int[GamePlay.row, GamePlay.col]);
+
+			dataGamePlay.GenerationData();
+			GameObjectManagement.Instance.gamePlay.LoadData(dataGamePlay);
+			GameObjectManagement.Instance.gamePlay.UnselectAll();
+
 			isStarted = true;
+		}
+
+		public bool CheckRemove(int row1, int col1, int row2, int col2)
+		{
+			return false;
 		}
 
 		public void Update()
@@ -54,6 +63,7 @@ namespace Pikachu.GameControl
 			if (isStarted)
 			{
 				GameObjectManagement.Instance.timeBar.Update();
+				GameObjectManagement.Instance.gamePlay.Update();
 			}
 		}
 	}

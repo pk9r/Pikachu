@@ -19,7 +19,7 @@ namespace Pikachu
 				ControlStyles.DoubleBuffer, true);
 
 			System.Windows.Forms.Timer GameTimer = new();
-			GameTimer.Interval = 10;
+			GameTimer.Interval = 60;
 			GameTimer.Tick += GameTimer_Tick;
 			GameTimer.Start();
 
