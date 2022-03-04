@@ -23,7 +23,6 @@ namespace Pikachu.GameObject
 			Sens.Add(background);
 			Sens.Add(exitButton);
 			Sens.Add(timeBar);
-			Sens.Add(timeLabel);
 			Sens.Add(newGameButton);
 			Sens.Add(gamePlay);
 
@@ -52,7 +51,7 @@ namespace Pikachu.GameObject
 
 		public ExitButton exitButton = new()
 		{
-			x = 700,
+			x = 750,
 			y = 0,
 			height = 75,
 			width = 75,
@@ -64,14 +63,6 @@ namespace Pikachu.GameObject
 			y = 40,
 			height = 30,
 			width = 500,
-		};
-
-		public TimeLabel timeLabel = new()
-		{
-			height = 30,
-			width = 100,
-			x = 50,
-			y = 40,
 		};
 
 		public NewGameButton newGameButton = new()

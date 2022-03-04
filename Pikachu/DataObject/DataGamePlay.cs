@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,27 +31,26 @@ namespace Pikachu.DataObject
 		/// <summary>Tạo dữ liệu ngẫu nhiên mới.</summary>
 		public void GetNewData()
 		{
-			HashSet<int> cellIndex = new();
+			List<int> indexes = Enumerable.Range(0, data.Length).ToList();
 
 			Random random = new();
 
 			int col = data.GetLength(1);
+			int index, typeOfPokemon;
 
 			for (int i = 0; i < data.Length / 2; i++)
 			{
-				int typeOfPokemon = random.Next(1, numOfType + 1);
+				typeOfPokemon = random.Next(1, numOfType + 1);
 
-				int cell1 = random.Next(random.Next(0, data.Length + 1));
-				while (cellIndex.Contains(cell1))
-					cell1 = random.Next(random.Next(0, data.Length + 1));
+				index = random.Next(0, indexes.Count);
+				int cell1 = indexes[index];
+				indexes.RemoveAt(index);
 				data[cell1 / col, cell1 % col] = typeOfPokemon;
-				cellIndex.Add(cell1);
 
-				int cell2 = random.Next(random.Next(0, data.Length + 1));
-				while (cellIndex.Contains(cell2))
-					cell2 = random.Next(random.Next(0, data.Length + 1));
+				index = random.Next(0, indexes.Count);
+				int cell2 = indexes[index];
+				indexes.RemoveAt(index);
 				data[cell2 / col, cell2 % col] = typeOfPokemon;
-				cellIndex.Add(cell2);
 			}
 		}
 	}
