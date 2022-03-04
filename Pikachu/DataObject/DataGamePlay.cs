@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Pikachu.DataObject
 {
+	/// <summary>Đối tượng thể hiện dữ liệu trong màn chơi.</summary>
 	internal class DataGamePlay
 	{
 		/// <summary>Số lượng pokemon</summary>
 		public static readonly int numOfType = 36;
 
+		/// <summary>Bảng dữ liệu của màn chơi.</summary>
 		public int[,] data;
 
 		public DataGamePlay(int row, int col)
@@ -18,8 +20,8 @@ namespace Pikachu.DataObject
 			data = new int[row, col];
 		}
 
-		/// <summary>Khởi tạo dữ liệu ngẫu nhiên</summary>
-		public void GenerationData()
+		/// <summary>Tạo dữ liệu ngẫu nhiên mới.</summary>
+		public void GetNewData()
 		{
 			HashSet<int> cellIndex = new();
 

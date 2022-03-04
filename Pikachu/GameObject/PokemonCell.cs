@@ -1,4 +1,5 @@
 ﻿using Pikachu.Extensions;
+using Pikachu.GameControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,15 @@ namespace Pikachu.GameObject
 		public static readonly int width = 40;
 		public static readonly int height = 50;
 
-		public static Bitmap? GetImage(int index)
+		/// <summary>Lấy ảnh đối tượng từ value.</summary>
+		/// <param name="value">The value.</param>
+		/// <returns>Hình ảnh tương ứng với value.<br /></returns>
+		public static Bitmap? GetImage(int value)
 		{
-			if (index <= 0 || index > images.Count)
+			if (value <= 0 || value > images.Count)
 				return null;
 
-			return images[index - 1];
+			return images[value - 1];
 		}
 
 		#region Object Draw
@@ -44,7 +48,12 @@ namespace Pikachu.GameObject
 		public bool isSelected;
 		public int row;
 		public int col;
-		public int value;
+
+		public int Value
+		{
+			get => GameControlManagement.Instance.dataGamePlay.data[row, col];
+			set => GameControlManagement.Instance.dataGamePlay.data[row, col] = value;
+		}
 
 		public override void Draw(Graphics g)
 		{
@@ -61,7 +70,7 @@ namespace Pikachu.GameObject
 
 		public void Update()
 		{
-			image = GetImage(value);
+			image = GetImage(Value);
 			if (isSelected)
 			{
 				image = image?.Opacity(0.5f);

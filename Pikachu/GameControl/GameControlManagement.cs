@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameControl
 {
+	/// <summary>Đối tượng quản lý các thao tác của trò chơi.</summary>
 	internal class GameControlManagement
 	{
 		#region Singleton
@@ -21,19 +22,24 @@ namespace Pikachu.GameControl
 
 		private GameControlManagement()
 		{
+			dataGamePlay = new(GamePlay.totalRows, GamePlay.totalColumns);
+			gamePlayChecker = new(dataGamePlay);
 		}
 
 		public static GameControlManagement Instance => instance;
 		#endregion
 
-		public LevelGame CurrentLevel => LevelGame.GetLevelGame(indexCurrentLevel);
+		public DataLevel CurrentLevel => DataLevel.GetLevelGame(indexCurrentLevel);
 
 		public int indexCurrentLevel = 0;
 
 		public bool isStarted = false;
 
-		public DataGamePlay dataGamePlay = new(GamePlay.totalRows, GamePlay.totalColumns);
+		public DataGamePlay dataGamePlay;
 
+		public GamePlayChecker gamePlayChecker;
+
+		/// <summary>Kết thúc trò chơi.</summary>
 		public void GameOver()
 		{
 			indexCurrentLevel = 0;
@@ -41,21 +47,28 @@ namespace Pikachu.GameControl
 			MessageBox.Show("Game Over");
 		}
 
+		/// <summary>Bắt đầu trò chơi mới.</summary>
 		public void StartGame()
 		{
 			GameObjectManagement.Instance.timeBar.timeStart = DateTime.Now.Ticks;
 			GameObjectManagement.Instance.timeBar.totalTime = CurrentLevel.totalTime;
 
-			dataGamePlay.GenerationData();
-			GameObjectManagement.Instance.gamePlay.LoadData(dataGamePlay);
+			dataGamePlay.GetNewData();
 			GameObjectManagement.Instance.gamePlay.UnselectAll();
 
 			isStarted = true;
 		}
 
-		public bool CheckRemove(int row1, int col1, int row2, int col2)
+		public List<LineConnect> SelectPair(int r1, int c1, int r2, int c2)
 		{
-			return false;
+			var lines = gamePlayChecker.GetLines(r1, c1, r2, c2);
+			if (lines.Count > 0)
+			{
+				dataGamePlay.data[r1, c1] = 0;
+				dataGamePlay.data[r2, c2] = 0;
+			}
+
+			return lines;
 		}
 
 		public void Update()
