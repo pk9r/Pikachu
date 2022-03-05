@@ -71,12 +71,23 @@ namespace Pikachu.GameControl
 		public void NewGame()
 		{
 			indexCurrentLevel = -1;
+			dataGamePlay.countHint = 2;
+			dataGamePlay.countShuffle = 2;
 			NextLevel();
 		}
 
 		public void Shuffle()
 		{
+			if (dataGamePlay.countShuffle <= 0)
+				return;
+
 			dataGamePlay.Shuffle();
+			dataGamePlay.countShuffle--;
+		}
+
+		public bool CheckWin()
+		{
+			return dataGamePlay.cells?.Count <= 0;
 		}
 
 		/// <summary>Lựa chọn 1 cặp ô.</summary>
@@ -95,6 +106,14 @@ namespace Pikachu.GameControl
 			{
 				dataGamePlay.data[r1, c1] = 0;
 				dataGamePlay.data[r2, c2] = 0;
+				dataGamePlay.cells.Remove(r1 * dataGamePlay.numOfCols + c1);
+				dataGamePlay.cells.Remove(r2 * dataGamePlay.numOfCols + c2);
+			}
+
+			if (CheckWin() == true)
+			{
+				MessageBox.Show("Next Level!");
+				NextLevel();
 			}
 
 			return lines;

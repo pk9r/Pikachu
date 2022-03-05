@@ -10,6 +10,8 @@ namespace Pikachu.DataObject
 	/// <summary>Đối tượng thể hiện dữ liệu trong màn chơi.</summary>
 	internal class DataGamePlay
 	{
+		public int numOfRows, numOfCols;
+
 		/// <summary>Số lượng pokemon trong màn chơi.</summary>
 		public int numOfType;
 
@@ -22,12 +24,24 @@ namespace Pikachu.DataObject
 		/// <summary>Thời gian còn lại của màn chơi.</summary>
 		public int timeRemaining;
 
+		/// <summary>Số lượt gợi ý.</summary>
+		public int countHint;
+
+		/// <summary>Số lượt trộn.</summary>
+		public int countShuffle;
+
 		/// <summary>Bảng dữ liệu của màn chơi.</summary>
 		public int[,] data;
 
-		public DataGamePlay(int row, int col)
+		/// <summary>Set các ô còn dữ liệu.</summary>
+		public SortedSet<int> cells = new();
+
+		public DataGamePlay(int numOfRows, int numOfCols)
 		{
-			data = new int[row, col];
+			this.numOfRows = numOfRows;
+			this.numOfCols = numOfCols;
+
+			data = new int[numOfRows, numOfCols];
 		}
 
 		public int GetValue(int row, int col)
@@ -49,8 +63,8 @@ namespace Pikachu.DataObject
 			List<int> indexes = Enumerable.Range(0, data.Length).ToList();
 
 			Random random = new();
+			cells.Clear();
 
-			int col = data.GetLength(1);
 			int index, typeOfPokemon;
 
 			for (int i = 0; i < data.Length / 2; i++)
@@ -60,39 +74,34 @@ namespace Pikachu.DataObject
 				index = random.Next(0, indexes.Count);
 				int cell1 = indexes[index];
 				indexes.RemoveAt(index);
-				data[cell1 / col, cell1 % col] = typeOfPokemon;
+				data[cell1 / numOfCols, cell1 % numOfCols] = typeOfPokemon;
+				cells.Add(cell1);
 
 				index = random.Next(0, indexes.Count);
 				int cell2 = indexes[index];
 				indexes.RemoveAt(index);
-				data[cell2 / col, cell2 % col] = typeOfPokemon;
+				data[cell2 / numOfCols, cell2 % numOfCols] = typeOfPokemon;
+				cells.Add(cell2);
 			}
 		}
 
 		/// <summary>Trộn ngẫu nhiên bảng dữ liệu trò chơi.</summary>
 		public void Shuffle()
 		{
-			List<int> rows = new();
-			List<int> cols = new();
 			List<int> vals = new();
+			int index;
 
 			Random random = new();
 
-			int row = data.GetLength(0);
-			int col = data.GetLength(1);
-
-			for (int i = 0; i < row; i++)
-				for (int j = 0; j < col; j++)
-					if (data[i, j] != 0)
-					{
-						rows.Add(i); cols.Add(j);
-						vals.Add(data[i, j]);
-					}
-
-			for (int i = 0; i < rows.Count; i++)
+			foreach (var cell in cells)
 			{
-				int index = random.Next(0, vals.Count);
-				data[rows[i], cols[i]] = vals[index];
+				vals.Add(data[cell / numOfCols, cell % numOfCols]);
+			}
+
+			foreach (var cell in cells)
+			{
+				index = random.Next(0, vals.Count);
+				data[cell / numOfCols, cell % numOfCols] = vals[index];
 				vals.RemoveAt(index);
 			}
 		}

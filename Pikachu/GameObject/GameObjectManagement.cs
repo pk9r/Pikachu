@@ -68,6 +68,12 @@ namespace Pikachu.GameObject
 			y = 200,
 		};
 
+		public LabelShuffle labelShuffle = new()
+		{
+			x = 100,
+			y = 215,
+		};
+
 		public GamePlay gamePlay = new(150, 100);
 		#endregion
 
@@ -83,6 +89,7 @@ namespace Pikachu.GameObject
 			Sens.Add(timeBar);
 			Sens.Add(newGameButton);
 			Sens.Add(shuffleButton);
+			Sens.Add(labelShuffle);
 			Sens.Add(gamePlay);
 
 			Clickables.Add(exitButton);
