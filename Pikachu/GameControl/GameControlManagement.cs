@@ -24,8 +24,9 @@ namespace Pikachu.GameControl
 		{
 			dataGamePlay = new(TOTAL_ROWS, TOTAL_COLUMNS);
 			gamePlayChecker = new(dataGamePlay);
+			timeChecker = new(dataGamePlay);
 
-			dataGamePlay.Timeout += DataGamePlay_Timeout;
+			timeChecker.Timeout += DataGamePlay_Timeout;
 		}
 
 		public static GameControlManagement Instance => instance;
@@ -45,7 +46,8 @@ namespace Pikachu.GameControl
 
 		public DataGamePlay dataGamePlay;
 
-		public GamePlayChecker gamePlayChecker;
+		public SelectChecker gamePlayChecker;
+		public TimeChecker timeChecker;
 
 		/// <summary>Kết thúc trò chơi.</summary>
 		public void GameOver()
@@ -61,10 +63,15 @@ namespace Pikachu.GameControl
 			indexCurrentLevel++;
 			dataGamePlay.GetNewData(CurrentLevel);
 
-			GameObjectManagement.Instance.timeBar.UpdateData();
-			GameObjectManagement.Instance.gamePlay.UnselectAll();
+			GameObjectManagement.Instance.UpdateDataLevel();
 
 			isStarted = true;
+		}
+
+		public void NewGame()
+		{
+			indexCurrentLevel = -1;
+			NextLevel();
 		}
 
 		/// <summary>Lựa chọn 1 cặp ô.</summary>
@@ -94,7 +101,7 @@ namespace Pikachu.GameControl
 			{
 				GameObjectManagement.Instance.Update();
 
-				dataGamePlay.Update();
+				timeChecker.Update();
 			}
 		}
 		private void DataGamePlay_Timeout(object? sender, EventArgs e)

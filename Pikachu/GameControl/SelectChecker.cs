@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameControl
 {
-	/// <summary>Đối tượng kiểm tra, xử lý các thao tác của GamePlay.</summary>
-	internal class GamePlayChecker
+	/// <summary>Đối tượng kiểm tra, xử lý các thao tác lựa chọn của game.</summary>
+	internal class SelectChecker
 	{
 		readonly DataGamePlay dataGamePlay;
 
 		// Toạ độ ngoại lệ của rào chắn
 		int rowE1, colE1, rowE2, colE2;
 
-		public GamePlayChecker(DataGamePlay dataGamePlay)
+		public SelectChecker(DataGamePlay dataGamePlay)
 		{
 			this.dataGamePlay = dataGamePlay;
 		}

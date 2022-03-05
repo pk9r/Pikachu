@@ -49,7 +49,7 @@ namespace Pikachu.GameObject
 			remaining = GameControlManagement.Instance.dataGamePlay.timeRemaining;
 		}
 
-		public void UpdateData()
+		public void UpdateDataLevel()
 		{
 			totalTime = GameControlManagement.Instance.dataGamePlay.totalTime;
 			remaining = GameControlManagement.Instance.dataGamePlay.timeRemaining;

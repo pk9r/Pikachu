@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Pikachu.GameObject
 {
 	/// <summary>Đối tượng quản lý và cài đặt các đối tượng.</summary>
-	internal class GameObjectManagement : IUpdatable
+	internal class GameObjectManagement : IUpdatable, IUpdateDataLevel
 	{
 		#region Singleton
 		private static readonly GameObjectManagement instance = new();
@@ -85,6 +85,12 @@ namespace Pikachu.GameObject
 		{
 			timeBar.Update();
 			gamePlay.Update();
+		}
+
+		public void UpdateDataLevel()
+		{
+			timeBar.UpdateDataLevel();
+			gamePlay.UpdateDataLevel();
 		}
 	}
 }

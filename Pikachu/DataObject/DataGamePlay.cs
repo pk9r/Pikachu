@@ -25,8 +25,6 @@ namespace Pikachu.DataObject
 		/// <summary>Bảng dữ liệu của màn chơi.</summary>
 		public int[,] data;
 
-		public event EventHandler? Timeout;
-
 		public DataGamePlay(int row, int col)
 		{
 			data = new int[row, col];
@@ -69,21 +67,6 @@ namespace Pikachu.DataObject
 				indexes.RemoveAt(index);
 				data[cell2 / col, cell2 % col] = typeOfPokemon;
 			}
-		}
-
-		public void Update()
-		{
-			timeRemaining = (int)(totalTime - (DateTime.Now.Ticks - timeLastStarted) / 10000000);
-			if (timeRemaining < 0)
-			{
-				timeRemaining = 0;
-				OnTimeout();
-			}
-		}
-
-		private void OnTimeout()
-		{
-			Timeout?.Invoke(this, new EventArgs());
 		}
 	}
 }

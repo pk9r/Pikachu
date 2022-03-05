@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Pikachu.GameObject
 {
 	/// <summary>Đối tượng hiển thị và nhận tương tác với các ô pokemon.</summary>
-	internal class GamePlay : ScreenObject, IClickable, IUpdatable
+	internal class GamePlay : ScreenObject, IClickable, IUpdatable, IUpdateDataLevel
 	{
 		public readonly int width, height;
 
@@ -88,6 +88,11 @@ namespace Pikachu.GameObject
 			UpdateCell();
 			UpdateFocusCell();
 			UpdateLines();
+		}
+
+		public void UpdateDataLevel()
+		{
+			UnselectAll();
 		}
 
 		/// <summary>Hiển thị các ô pokemon</summary>

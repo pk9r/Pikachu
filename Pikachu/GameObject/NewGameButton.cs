@@ -29,7 +29,7 @@ namespace Pikachu.GameObject
 
 		public override void OnClick(object? sender, EventArgs e)
 		{
-			//GameControlManagement.Instance.StartGame();
+			GameControlManagement.Instance.NewGame();
 		}
 	}
 }
