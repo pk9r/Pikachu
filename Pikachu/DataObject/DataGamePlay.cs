@@ -68,5 +68,33 @@ namespace Pikachu.DataObject
 				data[cell2 / col, cell2 % col] = typeOfPokemon;
 			}
 		}
+
+		/// <summary>Trộn ngẫu nhiên bảng dữ liệu trò chơi.</summary>
+		public void Shuffle()
+		{
+			List<int> rows = new();
+			List<int> cols = new();
+			List<int> vals = new();
+
+			Random random = new();
+
+			int row = data.GetLength(0);
+			int col = data.GetLength(1);
+
+			for (int i = 0; i < row; i++)
+				for (int j = 0; j < col; j++)
+					if (data[i, j] != 0)
+					{
+						rows.Add(i); cols.Add(j);
+						vals.Add(data[i, j]);
+					}
+
+			for (int i = 0; i < rows.Count; i++)
+			{
+				int index = random.Next(0, vals.Count);
+				data[rows[i], cols[i]] = vals[index];
+				vals.RemoveAt(index);
+			}
+		}
 	}
 }

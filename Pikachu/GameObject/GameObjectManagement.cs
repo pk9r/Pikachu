@@ -60,6 +60,14 @@ namespace Pikachu.GameObject
 			y = 100,
 		};
 
+		public ShuffleButton shuffleButton = new()
+		{
+			height = 75,
+			width = 75,
+			x = 20,
+			y = 200,
+		};
+
 		public GamePlay gamePlay = new(150, 100);
 		#endregion
 
@@ -74,10 +82,12 @@ namespace Pikachu.GameObject
 			Sens.Add(exitButton);
 			Sens.Add(timeBar);
 			Sens.Add(newGameButton);
+			Sens.Add(shuffleButton);
 			Sens.Add(gamePlay);
 
 			Clickables.Add(exitButton);
 			Clickables.Add(newGameButton);
+			Clickables.Add(shuffleButton);
 			Clickables.Add(gamePlay);
 		}
 

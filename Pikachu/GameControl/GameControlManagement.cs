@@ -74,6 +74,11 @@ namespace Pikachu.GameControl
 			NextLevel();
 		}
 
+		public void Shuffle()
+		{
+			dataGamePlay.Shuffle();
+		}
+
 		/// <summary>Lựa chọn 1 cặp ô.</summary>
 		/// <param name="r1">The r1.</param>
 		/// <param name="c1">The c1.</param>
