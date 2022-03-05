@@ -10,7 +10,7 @@
 - [ ] Chuyển màn chơi khi chiến thắng
 - [x] Cài đặt thời gian cho mỗi màn chơi
 - [x] Hiệu ứng trò chơi
-- [_] Âm thanh trò chơi
+- [ ] Âm thanh trò chơi
 
 ## Tính năng nâng cấp
 
