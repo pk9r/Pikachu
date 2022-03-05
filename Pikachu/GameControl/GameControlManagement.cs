@@ -112,6 +112,7 @@ namespace Pikachu.GameControl
 
 			if (CheckWin() == true)
 			{
+				isStarted = false;
 				MessageBox.Show("Next Level!");
 				NextLevel();
 			}
