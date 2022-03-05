@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Ô pokemon.</summary>
 	internal class PokemonCell : ScreenObject
 	{
+		public const int MAX_NUM_OF_TYPE = 36;
+
 		public static List<Bitmap?> images = LoadImages();
 
 		private static List<Bitmap?> LoadImages()
 		{
 			List<Bitmap?> images = new();
-			int length = DataGamePlay.numOfType;
+			int length = MAX_NUM_OF_TYPE;
 			for (int i = 1; i <= length; i++)
 			{
 				images.Add(Properties.Resources.ResourceManager.GetObject($"pieces{i}") as Bitmap);

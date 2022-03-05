@@ -10,11 +10,22 @@ namespace Pikachu.DataObject
 	/// <summary>Đối tượng thể hiện dữ liệu trong màn chơi.</summary>
 	internal class DataGamePlay
 	{
-		/// <summary>Số lượng pokemon</summary>
-		public static readonly int numOfType = 10;
+		/// <summary>Số lượng pokemon trong màn chơi.</summary>
+		public int numOfType;
+
+		/// <summary>Thời gian lần bắt đầu màn chơi cuối.</summary>
+		public long timeLastStarted;
+
+		/// <summary>Tổng thời gian màn chơi.</summary>
+		public int totalTime;
+
+		/// <summary>Thời gian còn lại của màn chơi.</summary>
+		public int timeRemaining;
 
 		/// <summary>Bảng dữ liệu của màn chơi.</summary>
 		public int[,] data;
+
+		public event EventHandler? Timeout;
 
 		public DataGamePlay(int row, int col)
 		{
@@ -25,12 +36,18 @@ namespace Pikachu.DataObject
 		{
 			if (row < 0 || col < 0 || row >= data.GetLength(0) || col >= data.GetLength(1))
 				return 0;
+
 			return data[row, col];
 		}
 
 		/// <summary>Tạo dữ liệu ngẫu nhiên mới.</summary>
-		public void GetNewData()
+		public void GetNewData(DataLevel dataLevel)
 		{
+			numOfType = dataLevel.numOfType;
+			totalTime = dataLevel.totalTime;
+
+			timeLastStarted = DateTime.Now.Ticks;
+
 			List<int> indexes = Enumerable.Range(0, data.Length).ToList();
 
 			Random random = new();
@@ -52,6 +69,21 @@ namespace Pikachu.DataObject
 				indexes.RemoveAt(index);
 				data[cell2 / col, cell2 % col] = typeOfPokemon;
 			}
+		}
+
+		public void Update()
+		{
+			timeRemaining = (int)(totalTime - (DateTime.Now.Ticks - timeLastStarted) / 10000000);
+			if (timeRemaining < 0)
+			{
+				timeRemaining = 0;
+				OnTimeout();
+			}
+		}
+
+		private void OnTimeout()
+		{
+			Timeout?.Invoke(this, new EventArgs());
 		}
 	}
 }

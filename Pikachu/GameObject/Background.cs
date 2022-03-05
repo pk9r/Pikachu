@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal class Background : ScreenObject
+	/// <summary>Hình nền.</summary>
+	internal class Background : ScreenObjectWithSize
 	{
-		public int width;
-		public int height;
-
 		readonly Image image = Properties.Resources.bg1;
 
 		public override void Draw(Graphics g)

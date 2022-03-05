@@ -49,7 +49,7 @@ namespace Pikachu.GameControl
 			int col, row;
 
 			col = CheckL(r1, c1, r2, c2);
-			if (col != -2)
+			if (col != int.MaxValue)
 			{
 				if (col == c1)
 				{
@@ -65,7 +65,7 @@ namespace Pikachu.GameControl
 			}
 
 			row = Check3R(r1, c1, r2, c2);
-			if (row != -2)
+			if (row != int.MaxValue)
 			{
 				lines.Add(new LineConnect(r1, c1, row, c1));
 				lines.Add(new LineConnect(row, c1, row, c2));
@@ -74,7 +74,7 @@ namespace Pikachu.GameControl
 			}
 
 			col = Check3C(r1, c1, r2, c2);
-			if (col != -2)
+			if (col != int.MaxValue)
 			{
 				lines.Add(new LineConnect(r1, c1, r1, col));
 				lines.Add(new LineConnect(r1, col, r2, col));
@@ -131,52 +131,69 @@ namespace Pikachu.GameControl
 				return c1;
 			}
 
-			return -2;
+			return int.MaxValue;
 		}
 
 		private int Check3R(int r1, int c1, int r2, int c2)
 		{
-			int rowP = r1, rowS = r1;
+			int rowP = r1;
 
-			while (rowP <= GamePlay.totalRows || rowS >= 0)
+			while (rowP < GameControlManagement.TOTAL_ROWS)
 			{
-				rowP++; 
-				rowS--;
-				if (CheckL(r1, c1, rowP, c2) != -2 &&
-					CheckL(rowP, c1, r2, c2) != -2)
-				{
+				rowP++;
+
+				if (!CheckLineC(r1, rowP, c1))
+					break;
+
+				if (CheckL(rowP, c1, r2, c2) != int.MaxValue)
 					return rowP;
-				}
-				if (CheckL(r1, c1, rowS, c2) != -2 &&
-					CheckL(rowS, c1, r2, c2) != -2)
-				{
-					return rowS;
-				}
 			}
-			return -2;
+
+			int rowS = r1;
+
+			while (rowS >= 0)
+			{
+				rowS--;
+				if (!CheckLineC(r1, rowS, c1))
+					break;
+
+				if (CheckL(rowS, c1, r2, c2) != int.MaxValue)
+					return rowS;
+			}
+
+			return int.MaxValue;
 		}
 
 		private int Check3C(int r1, int c1, int r2, int c2)
 		{
-			int colP = c1, colS = c1;
+			int colP = c1;
 
-			while (colP <= GamePlay.totalColumns || colS >= 0)
+			while (colP < GameControlManagement.TOTAL_COLUMNS)
 			{
 				colP++;
-				colS--;
-				if (CheckL(r1, c1, r2, colP) != -2 &&
-					CheckL(r1, colP, r2, c2) != -2)
-				{
+
+				if (!CheckLineR(c1, colP, r1))
+					break;
+
+				if (CheckL(r1, colP, r2, c2) != int.MaxValue)
 					return colP;
-				}
-				if (CheckL(r1, c1, r2, colS) != -2 &&
-					CheckL(r1, colS, r2, c2) != -2)
-				{
-					return colS;
-				} 
 			}
 
-			return -2;
+
+			int colS = c1;
+
+			while (colS >= 0)
+			{
+				colS--;
+
+				if (!CheckLineR(c1, colS, r1))
+					break;
+
+				if (CheckL(r1, colS, r2, c2) != int.MaxValue)
+					return colS;
+			}
+
+			return int.MaxValue;
 		}
 	}
 }

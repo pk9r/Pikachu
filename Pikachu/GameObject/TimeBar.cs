@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pikachu.GameControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal class TimeBar : ScreenObject
+	internal class TimeBar : ScreenObjectWithSize, IUpdatable
 	{
 		readonly Pen pen = new(Color.Black);
 		readonly Brush brushFill = new SolidBrush(Color.Green);
@@ -24,20 +25,8 @@ namespace Pikachu.GameObject
 			LineAlignment = StringAlignment.Center,
 		};
 
-		public int width;
-		public int height;
-
-		public long timeStart;
-
 		public int totalTime;
 		public int remaining;
-
-		public event EventHandler? Timeout;
-
-		public void OnTimeout()
-		{
-			Timeout?.Invoke(this, new EventArgs());
-		}
 
 		public override void Draw(Graphics g)
 		{
@@ -57,12 +46,13 @@ namespace Pikachu.GameObject
 
 		public void Update()
 		{
-			remaining = (int)(totalTime - (DateTime.Now.Ticks - timeStart) / 10000000);
-			if (remaining < 0)
-			{
-				remaining = 0;
-				OnTimeout();
-			}
+			remaining = GameControlManagement.Instance.dataGamePlay.timeRemaining;
+		}
+
+		public void UpdateData()
+		{
+			totalTime = GameControlManagement.Instance.dataGamePlay.totalTime;
+			remaining = GameControlManagement.Instance.dataGamePlay.timeRemaining;
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace Pikachu
 				Backbuffer.Dispose();
 
 			Backbuffer = new Bitmap(ClientSize.Width, ClientSize.Height);
-			GameControlManagement.Instance.StartGame();
+			GameControlManagement.Instance.NextLevel();
 		}
 
 		private void MainForm_MouseMove(object? sender, MouseEventArgs e)

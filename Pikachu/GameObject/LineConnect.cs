@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Pikachu.GameObject
 {
 	/// <summary>Đường thẳng kết nối các ô pokemon.</summary>
-	internal class LineConnect : IScreenObject
+	internal class LineConnect : IScreenObject, IUpdatable
 	{
 		readonly Pen pen = new(Color.Red, 5);
 		readonly int timeShow = 500;

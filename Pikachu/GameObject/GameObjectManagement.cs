@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal class GameObjectManagement
+	/// <summary>Đối tượng quản lý và cài đặt các đối tượng.</summary>
+	internal class GameObjectManagement : IUpdatable
 	{
 		#region Singleton
 		private static readonly GameObjectManagement instance = new();
@@ -20,27 +21,13 @@ namespace Pikachu.GameObject
 
 		private GameObjectManagement()
 		{
-			Sens.Add(background);
-			Sens.Add(exitButton);
-			Sens.Add(timeBar);
-			Sens.Add(newGameButton);
-			Sens.Add(gamePlay);
-
-			Clickables.Add(exitButton);
-			Clickables.Add(newGameButton);
-			Clickables.Add(gamePlay);
-
-			timeBar.Timeout += TimeBar_Timeout;
-		}
-
-		private void TimeBar_Timeout(object? sender, EventArgs e)
-		{
-			GameControlManagement.Instance.GameOver();
+			Init();
 		}
 
 		public static GameObjectManagement Instance => instance;
 		#endregion
 
+		#region View Objects
 		public Background background = new()
 		{
 			width = 850,
@@ -74,8 +61,30 @@ namespace Pikachu.GameObject
 		};
 
 		public GamePlay gamePlay = new(150, 100);
+		#endregion
 
+		#region List Objects
 		public List<IScreenObject> Sens = new();
 		public List<IClickable> Clickables = new();
+		#endregion
+
+		private void Init()
+		{
+			Sens.Add(background);
+			Sens.Add(exitButton);
+			Sens.Add(timeBar);
+			Sens.Add(newGameButton);
+			Sens.Add(gamePlay);
+
+			Clickables.Add(exitButton);
+			Clickables.Add(newGameButton);
+			Clickables.Add(gamePlay);
+		}
+
+		public void Update()
+		{
+			timeBar.Update();
+			gamePlay.Update();
+		}
 	}
 }

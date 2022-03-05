@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal abstract class ButtonObject : ScreenObject, IClickable
+	/// <summary>Đối tượng có thể xử lý sự kiện click.</summary>
+	internal abstract class ButtonObject : ScreenObjectWithSize, IClickable
 	{
-		public int width;
-		public int height;
-
 		public bool Contains(int x, int y)
 		{
 			Rectangle rect = new(this.x, this.y, width, height);

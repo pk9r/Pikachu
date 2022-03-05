@@ -22,16 +22,24 @@ namespace Pikachu.GameControl
 
 		private GameControlManagement()
 		{
-			dataGamePlay = new(GamePlay.totalRows, GamePlay.totalColumns);
+			dataGamePlay = new(TOTAL_ROWS, TOTAL_COLUMNS);
 			gamePlayChecker = new(dataGamePlay);
+
+			dataGamePlay.Timeout += DataGamePlay_Timeout;
 		}
 
 		public static GameControlManagement Instance => instance;
 		#endregion
 
+		/* Đây là bàn chơi tiêu chuẩn của pikachu classic
+		 * Đã phù hợp với kích thước form
+		 * Không nên thay đổi nếu không đổi kích thước form */
+		public const int TOTAL_ROWS = 9;
+		public const int TOTAL_COLUMNS = 16;
+
 		public DataLevel CurrentLevel => DataLevel.GetLevelGame(indexCurrentLevel);
 
-		public int indexCurrentLevel = 0;
+		public int indexCurrentLevel = -1;
 
 		public bool isStarted = false;
 
@@ -47,13 +55,13 @@ namespace Pikachu.GameControl
 			MessageBox.Show("Game Over");
 		}
 
-		/// <summary>Bắt đầu trò chơi mới.</summary>
-		public void StartGame()
+		/// <summary>Chuyển level tiếp theo.</summary>
+		public void NextLevel()
 		{
-			GameObjectManagement.Instance.timeBar.timeStart = DateTime.Now.Ticks;
-			GameObjectManagement.Instance.timeBar.totalTime = CurrentLevel.totalTime;
+			indexCurrentLevel++;
+			dataGamePlay.GetNewData(CurrentLevel);
 
-			dataGamePlay.GetNewData();
+			GameObjectManagement.Instance.timeBar.UpdateData();
 			GameObjectManagement.Instance.gamePlay.UnselectAll();
 
 			isStarted = true;
@@ -65,7 +73,8 @@ namespace Pikachu.GameControl
 		/// <param name="r2">The r2.</param>
 		/// <param name="c2">The c2.</param>
 		/// <returns>
-		///   <br />
+		///   <para>Các đoạn thẳng kết nối cặp ô pokemon (nếu lựa chọn hợp lệ)</para>
+		///   <para>Danh sách rỗng (nếu lựa chọn không hợp lệ)<br /></para>
 		/// </returns>
 		public List<LineConnect> SelectPair(int r1, int c1, int r2, int c2)
 		{
@@ -83,9 +92,14 @@ namespace Pikachu.GameControl
 		{
 			if (isStarted)
 			{
-				GameObjectManagement.Instance.timeBar.Update();
-				GameObjectManagement.Instance.gamePlay.Update();
+				GameObjectManagement.Instance.Update();
+
+				dataGamePlay.Update();
 			}
+		}
+		private void DataGamePlay_Timeout(object? sender, EventArgs e)
+		{
+			Instance.GameOver();
 		}
 	}
 }
