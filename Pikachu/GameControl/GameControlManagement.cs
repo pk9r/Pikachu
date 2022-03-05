@@ -70,6 +70,18 @@ namespace Pikachu.GameControl
 
 		public void NewGame()
 		{
+			if (indexCurrentLevel > 0)
+			{
+				var r = MessageBox.Show(
+					"Tiến trình trò chơi sẽ bị mất",
+					"Cảnh báo",
+					MessageBoxButtons.OKCancel,
+					MessageBoxIcon.Warning);
+
+				if (r != DialogResult.OK)
+					return;
+			}
+
 			indexCurrentLevel = -1;
 			dataGamePlay.countHint = 2;
 			dataGamePlay.countShuffle = 2;
@@ -87,7 +99,7 @@ namespace Pikachu.GameControl
 
 		public bool CheckWin()
 		{
-			return dataGamePlay.cells?.Count <= 0;
+			return dataGamePlay.setCells.Count <= 0;
 		}
 
 		/// <summary>Lựa chọn 1 cặp ô.</summary>
@@ -104,10 +116,8 @@ namespace Pikachu.GameControl
 			var lines = gamePlayChecker.GetLines(r1, c1, r2, c2);
 			if (lines.Count > 0)
 			{
-				dataGamePlay.data[r1, c1] = 0;
-				dataGamePlay.data[r2, c2] = 0;
-				dataGamePlay.cells.Remove(r1 * dataGamePlay.numOfCols + c1);
-				dataGamePlay.cells.Remove(r2 * dataGamePlay.numOfCols + c2);
+				dataGamePlay.RemoveCell(r1, c1);
+				dataGamePlay.RemoveCell(r2, c2);
 			}
 
 			if (CheckWin() == true)
@@ -124,9 +134,9 @@ namespace Pikachu.GameControl
 		{
 			if (isStarted)
 			{
-				GameObjectManagement.Instance.Update();
-
 				timeChecker.Update();
+
+				GameObjectManagement.Instance.Update();
 			}
 		}
 		private void DataGamePlay_Timeout(object? sender, EventArgs e)

@@ -10,6 +10,8 @@ namespace Pikachu.DataObject
 	/// <summary>Đối tượng thể hiện dữ liệu trong màn chơi.</summary>
 	internal class DataGamePlay
 	{
+		public const int NONE_CELL = 0;
+
 		public int numOfRows, numOfCols;
 
 		/// <summary>Số lượng pokemon trong màn chơi.</summary>
@@ -34,7 +36,7 @@ namespace Pikachu.DataObject
 		public int[,] data;
 
 		/// <summary>Set các ô còn dữ liệu.</summary>
-		public SortedSet<int> cells = new();
+		public SortedSet<int> setCells = new();
 
 		public DataGamePlay(int numOfRows, int numOfCols)
 		{
@@ -47,9 +49,15 @@ namespace Pikachu.DataObject
 		public int GetValue(int row, int col)
 		{
 			if (row < 0 || col < 0 || row >= data.GetLength(0) || col >= data.GetLength(1))
-				return 0;
+				return NONE_CELL;
 
 			return data[row, col];
+		}
+
+		public void RemoveCell(int row, int col)
+		{
+			data[row, col] = NONE_CELL;
+			setCells.Remove(row * numOfCols + col);
 		}
 
 		/// <summary>Tạo dữ liệu ngẫu nhiên mới.</summary>
@@ -63,7 +71,7 @@ namespace Pikachu.DataObject
 			List<int> indexes = Enumerable.Range(0, data.Length).ToList();
 
 			Random random = new();
-			cells.Clear();
+			setCells.Clear();
 
 			int index, typeOfPokemon;
 
@@ -75,13 +83,13 @@ namespace Pikachu.DataObject
 				int cell1 = indexes[index];
 				indexes.RemoveAt(index);
 				data[cell1 / numOfCols, cell1 % numOfCols] = typeOfPokemon;
-				cells.Add(cell1);
+				setCells.Add(cell1);
 
 				index = random.Next(0, indexes.Count);
 				int cell2 = indexes[index];
 				indexes.RemoveAt(index);
 				data[cell2 / numOfCols, cell2 % numOfCols] = typeOfPokemon;
-				cells.Add(cell2);
+				setCells.Add(cell2);
 			}
 		}
 
@@ -93,12 +101,12 @@ namespace Pikachu.DataObject
 
 			Random random = new();
 
-			foreach (var cell in cells)
+			foreach (var cell in setCells)
 			{
 				vals.Add(data[cell / numOfCols, cell % numOfCols]);
 			}
 
-			foreach (var cell in cells)
+			foreach (var cell in setCells)
 			{
 				index = random.Next(0, vals.Count);
 				data[cell / numOfCols, cell % numOfCols] = vals[index];

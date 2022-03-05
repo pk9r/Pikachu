@@ -7,7 +7,7 @@
 - [ ] Trộn bảng trò chơi khi hết lựa chọn
 - [x] Chức năng trộn bảng trò chơi
 - [ ] Chức năng gợi ý
-- [ ] Chuyển màn chơi khi chiến thắng
+- [x] Chuyển màn chơi khi chiến thắng
 - [x] Cài đặt thời gian cho mỗi màn chơi
 - [x] Hiệu ứng trò chơi
 - [ ] Âm thanh trò chơi
