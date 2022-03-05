@@ -85,6 +85,16 @@ namespace Pikachu.GameControl
 			return lines;
 		}
 
+		public List<LineConnect> GetLines(int index1, int index2)
+		{
+			int r1 = index1 / dataGamePlay.numOfCols;
+			int c1 = index1 % dataGamePlay.numOfCols;
+			int r2 = index2 / dataGamePlay.numOfCols;
+			int c2 = index2 % dataGamePlay.numOfCols;
+
+			return GetLines(r1, c1, r2, c2);
+		}
+
 		/// <summary>Kiểm tra toạ độ rào chắn.</summary>
 		/// <param name="row">The row.</param>
 		/// <param name="col">The col.</param>

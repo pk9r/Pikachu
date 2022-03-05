@@ -23,8 +23,9 @@ namespace Pikachu.GameControl
 		private GameControlManagement()
 		{
 			dataGamePlay = new(TOTAL_ROWS, TOTAL_COLUMNS);
-			gamePlayChecker = new(dataGamePlay);
+			selectChecker = new(dataGamePlay);
 			timeChecker = new(dataGamePlay);
+			hintChecker = new(dataGamePlay, selectChecker);
 
 			timeChecker.Timeout += DataGamePlay_Timeout;
 		}
@@ -46,7 +47,8 @@ namespace Pikachu.GameControl
 
 		public DataGamePlay dataGamePlay;
 
-		public SelectChecker gamePlayChecker;
+		public SelectChecker selectChecker;
+		public HintChecker hintChecker;
 		public TimeChecker timeChecker;
 
 		/// <summary>Kết thúc trò chơi.</summary>
@@ -113,11 +115,13 @@ namespace Pikachu.GameControl
 		/// </returns>
 		public List<LineConnect> SelectPair(int r1, int c1, int r2, int c2)
 		{
-			var lines = gamePlayChecker.GetLines(r1, c1, r2, c2);
+			var lines = selectChecker.GetLines(r1, c1, r2, c2);
 			if (lines.Count > 0)
 			{
 				dataGamePlay.RemoveCell(r1, c1);
 				dataGamePlay.RemoveCell(r2, c2);
+
+				hintChecker.LoadHint();
 			}
 
 			if (CheckWin() == true)

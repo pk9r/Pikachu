@@ -14,7 +14,8 @@ namespace Pikachu.GameObject
 		public readonly int width, height;
 
 		#region Object Draw
-		readonly Pen pen = new(Color.Brown);
+		readonly Pen penBorder = new(Color.Brown);
+		readonly Pen penHint = new(Color.Red, 3);
 		#endregion
 
 		/// <summary>Mảng 2 chiều chứa các ô pokemon.</summary>
@@ -31,6 +32,12 @@ namespace Pikachu.GameObject
 
 		/// <summary>Ô pokemon đã được lựa chọn 2.</summary>
 		public PokemonCell? cellSelected2;
+
+		/// <summary>Ô pokemon đã được lựa chọn 1.</summary>
+		public PokemonCell? cellHint1;
+
+		/// <summary>Ô pokemon đã được lựa chọn 2.</summary>
+		public PokemonCell? cellHint2;
 
 		/// <summary>Khởi tạo GamePlay theo toạ độ.</summary>
 		/// <param name="x">The x.</param>
@@ -65,6 +72,7 @@ namespace Pikachu.GameObject
 			DrawPokemonCells(g);
 			DrawBorder(g);
 			DrawLineConnects(g);
+			DrawHint(g);
 		}
 
 		public void OnClick(object? sender, EventArgs e)
@@ -88,6 +96,7 @@ namespace Pikachu.GameObject
 			UpdateCell();
 			UpdateFocusCell();
 			UpdateLines();
+			UpdateHint();
 		}
 
 		public void UpdateDataLevel()
@@ -107,7 +116,7 @@ namespace Pikachu.GameObject
 		/// <param name="g">The g.</param>
 		private void DrawBorder(Graphics g)
 		{
-			g.DrawRectangle(pen, x, y, width, height);
+			g.DrawRectangle(penBorder, x, y, width, height);
 		}
 
 		/// <summary>Vẽ các đường thẳng kết nối cặp pokemon.</summary>
@@ -116,6 +125,12 @@ namespace Pikachu.GameObject
 		{
 			foreach (var line in lineConnects)
 				line.Draw(g);
+		}
+
+		private void DrawHint(Graphics g)
+		{
+			g.DrawRectangle(penHint, cellHint1.x, cellHint1.y, PokemonCell.width, PokemonCell.height);
+			g.DrawRectangle(penHint, cellHint2.x, cellHint2.y, PokemonCell.width, PokemonCell.height);
 		}
 
 		/// <summary>Lựa chọn một ô pokemon.</summary>
@@ -173,8 +188,8 @@ namespace Pikachu.GameObject
 			int col = (x - this.x) / PokemonCell.width;
 
 			if (x >= this.x && y >= this.y &&
-				row >= 0 && row < GameControlManagement.TOTAL_ROWS &&
-				col >= 0 && col < GameControlManagement.TOTAL_COLUMNS &&
+				row >= 0 && row < GameControlManagement.Instance.dataGamePlay.numOfRows &&
+				col >= 0 && col < GameControlManagement.Instance.dataGamePlay.numOfCols &&
 				pokemonCells[row, col].image != null)
 				return pokemonCells[row, col];
 
@@ -203,6 +218,24 @@ namespace Pikachu.GameObject
 		{
 			foreach (var line in lineConnects)
 				line.Update();
+		}
+
+		private void UpdateHint()
+		{
+			int row1 = GameControlManagement.Instance.hintChecker.indexHint1 /
+				GameControlManagement.Instance.dataGamePlay.numOfCols;
+			int col1 = GameControlManagement.Instance.hintChecker.indexHint1 %
+				GameControlManagement.Instance.dataGamePlay.numOfCols;
+			int row2 = GameControlManagement.Instance.hintChecker.indexHint2 /
+				GameControlManagement.Instance.dataGamePlay.numOfCols;
+			int col2 = GameControlManagement.Instance.hintChecker.indexHint2 %
+				GameControlManagement.Instance.dataGamePlay.numOfCols;
+
+			if (pokemonCells[row1, col1] != null && pokemonCells[row2, col2] != null)
+			{
+				cellHint1 = pokemonCells[row1, col1];
+				cellHint2 = pokemonCells[row2, col2];
+			}
 		}
 	}
 }
