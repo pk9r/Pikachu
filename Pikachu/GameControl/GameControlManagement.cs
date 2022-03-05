@@ -67,6 +67,7 @@ namespace Pikachu.GameControl
 
 			GameObjectManagement.Instance.UpdateDataLevel();
 
+			hintChecker.LoadHint();
 			isStarted = true;
 		}
 

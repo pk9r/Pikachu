@@ -20,7 +20,7 @@ namespace Pikachu
 
 		public static List<DataLevel> levelGames = new()
 		{
-			new() { level = 1, totalTime = 600, numOfType = 15 },
+			new() { level = 1, totalTime = 600, numOfType = 36 },
 			new() { level = 2, totalTime = 600, numOfType = 20 },
 			new() { level = 3, totalTime = 550, numOfType = 20 },
 			new() { level = 4, totalTime = 550, numOfType = 25 },
