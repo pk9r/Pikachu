@@ -54,6 +54,11 @@ namespace Pikachu.DataObject
 			return data[row, col];
 		}
 
+		public int GetValue(int index)
+		{
+			return GetValue(index / numOfCols, index % numOfCols);
+		}
+
 		public void RemoveCell(int row, int col)
 		{
 			data[row, col] = NONE_CELL;
