@@ -1,10 +1,14 @@
 # PIKACHU
 
+## link github: https://github.com/pk9rprotein/Pikachu
+
+## Yeu cau .NET 6.0
+
 ## Tính năng cơ bản
 
 - [x] Bắt đầu game với bảng trò chơi ngẫu nhiên
 - [x] Xét quy luật 3 đường khi chọn 1 cặp
-- [ ] Trộn bảng trò chơi khi hết lựa chọn
+- [x] Trộn bảng trò chơi khi hết lựa chọn
 - [x] Chức năng trộn bảng trò chơi
 - [x] Chức năng gợi ý
 - [x] Chuyển màn chơi khi chiến thắng
