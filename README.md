@@ -6,13 +6,13 @@
 - [x] Xét quy luật 3 đường khi chọn 1 cặp
 - [ ] Trộn bảng trò chơi khi hết lựa chọn
 - [x] Chức năng trộn bảng trò chơi
-- [ ] Chức năng gợi ý
+- [x] Chức năng gợi ý
 - [x] Chuyển màn chơi khi chiến thắng
 - [x] Cài đặt thời gian cho mỗi màn chơi
 - [x] Hiệu ứng trò chơi
-- [ ] Âm thanh trò chơi
+- [x] Âm thanh trò chơi
 
 ## Tính năng nâng cấp
 
 - [x] Cài đặt số lượng loại pokemon cho mỗi màn chơi (max 36)
-- [ ] Tuỳ chỉnh màn chơi
+- [x] Tuỳ chỉnh màn chơi
