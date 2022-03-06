@@ -13,7 +13,14 @@ namespace Pikachu.GameControl
 
 		SelectChecker selectChecker;
 
+
 		public int indexHint1, indexHint2;
+		public bool hint = true;
+
+		public HintChecker()
+		{
+
+		}
 
 		public HintChecker(DataGamePlay dataGamePlay, SelectChecker selectChecker)
 		{
@@ -43,9 +50,9 @@ namespace Pikachu.GameControl
 					}
 				}
 			}
-
 			indexHint1 = int.MaxValue;
 			indexHint2 = int.MaxValue;
+			hint = false;
 		}
 	}
 }

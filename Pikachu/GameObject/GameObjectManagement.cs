@@ -90,6 +90,14 @@ namespace Pikachu.GameObject
 			y = 20,
 		};
 
+		public HintCheckerButton hintCheckerButton = new()
+		{
+			width = 48,
+			height = 48,
+			x = 20,
+			y = 350,
+		};
+
 		public GamePlay gamePlay = new(150, 100);
 		#endregion
 
@@ -109,6 +117,7 @@ namespace Pikachu.GameObject
 			Sens.Add(gamePlay);
 			Sens.Add(customButton);
 			Sens.Add(audioButton);
+			Sens.Add(hintCheckerButton);
 
 			Clickables.Add(exitButton);
 			Clickables.Add(newGameButton);
@@ -116,6 +125,7 @@ namespace Pikachu.GameObject
 			Clickables.Add(gamePlay);
 			Clickables.Add(customButton);
 			Clickables.Add(audioButton);
+			Clickables.Add(hintCheckerButton);
 		}
 
 		public void Update()

@@ -15,7 +15,7 @@ namespace Pikachu.GameObject
 
 		#region Object Draw
 		readonly Pen penBorder = new(Color.Brown);
-		readonly Pen penHint = new(Color.Red, 3);
+		public Pen penHint = new(Color.Black);
 		#endregion
 
 		/// <summary>Mảng 2 chiều chứa các ô pokemon.</summary>
@@ -33,10 +33,10 @@ namespace Pikachu.GameObject
 		/// <summary>Ô pokemon đã được lựa chọn 2.</summary>
 		public PokemonCell? cellSelected2;
 
-		/// <summary>Ô pokemon đã được lựa chọn 1.</summary>
+		///// <summary>Ô pokemon đã được lựa chọn 1.</summary>
 		public PokemonCell? cellHint1;
 
-		/// <summary>Ô pokemon đã được lựa chọn 2.</summary>
+		///// <summary>Ô pokemon đã được lựa chọn 2.</summary>
 		public PokemonCell? cellHint2;
 
 		/// <summary>Khởi tạo GamePlay theo toạ độ.</summary>
