@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pikachu.GameControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,14 @@ namespace Pikachu
 		/// <summary>Số lượng pokemon của màn chơi.</summary>
 		public int numOfType;
 
+		/// <summary>Số hàng của màn chơi.</summary>
+		public int numOfRows = GameControlManagement.TOTAL_ROWS;
+
+		/// <summary>Số cột của màn chơi.</summary>
+		public int numOfCols = GameControlManagement.TOTAL_COLUMNS;
+
+		public static DataLevel customLevel = new() { level = 0, numOfRows = 9, numOfCols = 16, numOfType = 25, totalTime = 400};
+
 		public static List<DataLevel> levelGames = new()
 		{
 			new() { level = 1, totalTime = 600, numOfType = 15 },
@@ -34,6 +43,15 @@ namespace Pikachu
 
 		public static DataLevel GetLevelGame(int index)
 		{
+			if (index == -1)
+				return customLevel;
+
+			if (index < 0)
+				return levelGames.First();
+
+			if (index >= levelGames.Count)
+				return levelGames.Last();
+
 			return levelGames[index];
 		}
 	}

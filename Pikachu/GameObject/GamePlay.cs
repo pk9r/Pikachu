@@ -51,7 +51,7 @@ namespace Pikachu.GameObject
 			int yBase = this.y = y;
 
 			pokemonCells = new PokemonCell[
-				GameControlManagement.TOTAL_ROWS, 
+				GameControlManagement.TOTAL_ROWS,
 				GameControlManagement.TOTAL_COLUMNS];
 
 			for (int i = 0; i < GameControlManagement.TOTAL_ROWS; i++)
@@ -129,8 +129,11 @@ namespace Pikachu.GameObject
 
 		private void DrawHint(Graphics g)
 		{
-			g.DrawRectangle(penHint, cellHint1.x, cellHint1.y, PokemonCell.width, PokemonCell.height);
-			g.DrawRectangle(penHint, cellHint2.x, cellHint2.y, PokemonCell.width, PokemonCell.height);
+			if (cellHint1 != null && cellHint2 != null)
+			{
+				g.DrawRectangle(penHint, cellHint1.x, cellHint1.y, PokemonCell.width, PokemonCell.height);
+				g.DrawRectangle(penHint, cellHint2.x, cellHint2.y, PokemonCell.width, PokemonCell.height);
+			}
 		}
 
 		/// <summary>Lựa chọn một ô pokemon.</summary>
@@ -150,6 +153,7 @@ namespace Pikachu.GameObject
 			if (cellSelected1 == cellFocus)
 			{
 				cellSelected1.isSelected = false;
+				cellSelected1 = null;
 				return;
 			}
 
@@ -222,6 +226,13 @@ namespace Pikachu.GameObject
 
 		private void UpdateHint()
 		{
+			if (GameControlManagement.Instance.hintChecker.indexHint1 == int.MaxValue ||
+				GameControlManagement.Instance.hintChecker.indexHint2 == int.MaxValue)
+			{
+				cellHint1 = cellHint2 = null;
+				return;
+			}
+
 			int row1 = GameControlManagement.Instance.hintChecker.indexHint1 /
 				GameControlManagement.Instance.dataGamePlay.numOfCols;
 			int col1 = GameControlManagement.Instance.hintChecker.indexHint1 %
@@ -231,11 +242,8 @@ namespace Pikachu.GameObject
 			int col2 = GameControlManagement.Instance.hintChecker.indexHint2 %
 				GameControlManagement.Instance.dataGamePlay.numOfCols;
 
-			if (pokemonCells[row1, col1] != null && pokemonCells[row2, col2] != null)
-			{
-				cellHint1 = pokemonCells[row1, col1];
-				cellHint2 = pokemonCells[row2, col2];
-			}
+			cellHint1 = pokemonCells[row1, col1];
+			cellHint2 = pokemonCells[row2, col2];
 		}
 	}
 }

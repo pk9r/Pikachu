@@ -71,7 +71,7 @@ namespace Pikachu.GameControl
 			isStarted = true;
 		}
 
-		public void NewGame()
+		public void NewGame(bool isLevelCustom = false)
 		{
 			if (indexCurrentLevel > 0)
 			{
@@ -86,6 +86,9 @@ namespace Pikachu.GameControl
 			}
 
 			indexCurrentLevel = -1;
+			if (isLevelCustom)
+				indexCurrentLevel = -2;
+
 			dataGamePlay.countHint = 2;
 			dataGamePlay.countShuffle = 2;
 			NextLevel();
@@ -98,6 +101,8 @@ namespace Pikachu.GameControl
 
 			dataGamePlay.Shuffle();
 			dataGamePlay.countShuffle--;
+
+			hintChecker.LoadHint();
 		}
 
 		public bool CheckWin()

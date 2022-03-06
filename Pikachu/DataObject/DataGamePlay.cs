@@ -73,14 +73,23 @@ namespace Pikachu.DataObject
 
 			timeLastStarted = DateTime.Now.Ticks;
 
-			List<int> indexes = Enumerable.Range(0, data.Length).ToList();
+			numOfRows = dataLevel.numOfRows;
+			numOfCols = dataLevel.numOfCols;
+
+			int length = numOfRows * numOfCols;
+
+			for (int i = 0; i < data.GetLength(0); i++)
+				for (int j = 0; j < data.GetLength(1); j++)
+					data[i, j] = 0;
+
+			List<int> indexes = Enumerable.Range(0, length).ToList();
 
 			Random random = new();
 			setCells.Clear();
 
 			int index, typeOfPokemon;
 
-			for (int i = 0; i < data.Length / 2; i++)
+			for (int i = 0; i < length / 2; i++)
 			{
 				typeOfPokemon = random.Next(1, numOfType + 1);
 

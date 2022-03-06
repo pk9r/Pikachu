@@ -148,7 +148,7 @@ namespace Pikachu.GameControl
 		{
 			int rowP = r1;
 
-			while (rowP < GameControlManagement.TOTAL_ROWS)
+			while (rowP < dataGamePlay.numOfRows)
 			{
 				rowP++;
 
@@ -178,7 +178,7 @@ namespace Pikachu.GameControl
 		{
 			int colP = c1;
 
-			while (colP < GameControlManagement.TOTAL_COLUMNS)
+			while (colP < dataGamePlay.numOfCols)
 			{
 				colP++;
 
