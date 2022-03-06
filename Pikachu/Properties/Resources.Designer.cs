@@ -83,6 +83,16 @@ namespace Pikachu.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mute {
+            get {
+                object obj = ResourceManager.GetObject("mute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pieces1 {
             get {
                 object obj = ResourceManager.GetObject("pieces1", resourceCulture);
@@ -446,16 +456,6 @@ namespace Pikachu.Properties {
         internal static System.Drawing.Bitmap shuffle {
             get {
                 object obj = ResourceManager.GetObject("shuffle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap shuffle1 {
-            get {
-                object obj = ResourceManager.GetObject("shuffle1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

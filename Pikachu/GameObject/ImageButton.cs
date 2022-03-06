@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Đối tượng button sử dụng image.</summary>
 	internal abstract class ImageButton : ButtonObject
 	{
 		public Image? image;

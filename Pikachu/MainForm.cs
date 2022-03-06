@@ -35,8 +35,6 @@ namespace Pikachu
 			if (Backbuffer != null)
 				Backbuffer.Dispose();
 
-			SoundPlayer soundPlayer = new(Properties.Resources.sunset);
-			soundPlayer.Play();
 			Backbuffer = new Bitmap(ClientSize.Width, ClientSize.Height);
 			GameControlManagement.Instance.NewGame();
 		}
