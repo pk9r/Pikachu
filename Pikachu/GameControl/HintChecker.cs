@@ -52,7 +52,9 @@ namespace Pikachu.GameControl
 			}
 			indexHint1 = int.MaxValue;
 			indexHint2 = int.MaxValue;
-			hint = false;
+			if (dataGamePlay.countShuffle <= 0 && GameControlManagement.Instance.isStarted == false)
+				GameControlManagement.Instance.GameOver();
+			GameControlManagement.Instance.Shuffle();
 		}
 	}
 }

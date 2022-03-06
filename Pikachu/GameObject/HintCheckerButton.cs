@@ -9,7 +9,6 @@ namespace Pikachu.GameObject
 	internal class HintCheckerButton : ImageButton
 	{
 		bool isClick = false;
-		private int count;
 		public HintCheckerButton()
 		{
 			image = Properties.Resources.hintchecker;

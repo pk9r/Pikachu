@@ -103,12 +103,6 @@ namespace Pikachu.GameControl
 			dataGamePlay.countShuffle--;
 
 			hintChecker.LoadHint();
-			if (hintChecker.indexHint1 == int.MaxValue && hintChecker.indexHint2 == int.MaxValue)
-			{
-				if(dataGamePlay.countShuffle <= 0)
-					Instance.GameOver();
-				Instance.Shuffle();
-			}
 		}
 
 		public bool CheckWin()
