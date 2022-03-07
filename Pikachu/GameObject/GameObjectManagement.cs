@@ -30,75 +30,58 @@ namespace Pikachu.GameObject
 		#region View Objects
 		public Background background = new()
 		{
-			width = 850,
-			height = 600,
-			x = 0,
-			y = 0,
+			size = new(850, 600),
+			location = new(0, 0),
 		};
 
 		public ExitButton exitButton = new()
 		{
-			x = 750,
-			y = 0,
-			height = 75,
-			width = 75,
+			size = new(75, 75),
+			location = new(750, 0),
 		};
 
 		public TimeBar timeBar = new()
 		{
-			x = 150,
-			y = 40,
-			height = 30,
-			width = 500,
+			size = new(500, 30),
+			location = new(150, 40),
 		};
 
 		public NewGameButton newGameButton = new()
 		{
-			height = 40,
-			width = 100,
-			x = 20,
-			y = 100,
+			size = new(100, 40),
+			location = new(20, 100),
 		};
 
 		public ShuffleButton shuffleButton = new()
 		{
-			height = 75,
-			width = 75,
-			x = 20,
-			y = 200,
+			size = new(75, 75),
+			location = new(20, 200),
 		};
 
 		public LabelShuffle labelShuffle = new()
 		{
-			x = 100,
-			y = 215,
+			location = new(100, 215),
 		};
 
 		public CustomButton customButton = new()
 		{
-			height = 40,
-			width = 100,
-			x = 20,
-			y = 300,
+			size = new(100, 40),
+			location = new(20, 300),
 		};
 
 		public AudioButton audioButton = new()
 		{
-			width = 48,
-			height = 48,
-			x = 20,
-			y = 20,
+			size = new(48, 48),
+			location = new(20, 20),
 		};
 
-		public HintCheckerButton hintCheckerButton = new()
+		public HintButton hintButton = new()
 		{
-			width = 48,
-			height = 48,
-			x = 20,
-			y = 350,
+			size = new(48, 48),
+			location = new(20, 350),
 		};
 
-		public GamePlay gamePlay = new(150, 100);
+		public GamePlay gamePlay = new(new(150, 100));
 		#endregion
 
 		#region List Objects
@@ -108,24 +91,20 @@ namespace Pikachu.GameObject
 
 		private void Init()
 		{
-			Sens.Add(background);
-			Sens.Add(exitButton);
-			Sens.Add(timeBar);
-			Sens.Add(newGameButton);
-			Sens.Add(shuffleButton);
-			Sens.Add(labelShuffle);
-			Sens.Add(gamePlay);
-			Sens.Add(customButton);
-			Sens.Add(audioButton);
-			Sens.Add(hintCheckerButton);
-
 			Clickables.Add(exitButton);
 			Clickables.Add(newGameButton);
 			Clickables.Add(shuffleButton);
 			Clickables.Add(gamePlay);
 			Clickables.Add(customButton);
 			Clickables.Add(audioButton);
-			Clickables.Add(hintCheckerButton);
+			Clickables.Add(hintButton);
+
+			Sens.Add(background);
+			Sens.Add(timeBar);
+			Sens.Add(labelShuffle);
+			Sens.Add(hintButton);
+
+			Sens.AddRange(Clickables);
 		}
 
 		public void Update()

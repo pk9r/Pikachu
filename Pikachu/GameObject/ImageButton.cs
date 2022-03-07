@@ -13,8 +13,10 @@ namespace Pikachu.GameObject
 
 		public override void Draw(Graphics g)
 		{
+			Rectangle rect = new(location, size);
+
 			if (image != null)
-				g.DrawImage(image, x, y, width, height);
+				g.DrawImage(image, rect);
 		}
 	}
 }

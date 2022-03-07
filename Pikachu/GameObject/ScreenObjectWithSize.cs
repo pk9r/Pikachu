@@ -9,9 +9,7 @@ namespace Pikachu.GameObject
 	/// <summary>Đối tượng hiển thị trên màn hình với toạ độ và kích thước.</summary>
 	internal abstract class ScreenObjectWithSize : ScreenObject
 	{
-		/// <summary>The width</summary>
-		public int width;
-		/// <summary>The height</summary>
-		public int height;
+		/// <summary>Kích thước đối tượng.</summary>
+		public Size size;
 	}
 }

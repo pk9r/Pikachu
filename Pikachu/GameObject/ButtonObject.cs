@@ -11,7 +11,7 @@ namespace Pikachu.GameObject
 	{
 		public bool Contains(int x, int y)
 		{
-			Rectangle rect = new(this.x, this.y, width, height);
+			Rectangle rect = new(location, size);
 			return rect.Contains(x, y);
 		}
 

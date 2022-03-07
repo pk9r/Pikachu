@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Nút Bật/Tắt nhạc nền.</summary>
 	internal class AudioButton : ImageButton
 	{
-		bool isSoundOn = true;
 		readonly SoundPlayer soundPlayer = new(Properties.Resources.sunset);
+		
+		/// <summary>Trạng thái phát audio.</summary>
+		bool isPlaying = true;
 
 		public AudioButton()
 		{
@@ -22,14 +25,15 @@ namespace Pikachu.GameObject
 			TogglePlay();
 		}
 
+		/// <summary>Bật/Tắt nhạc nền.</summary>
 		public void TogglePlay()
 		{
-			if (isSoundOn = !isSoundOn)
+			if (isPlaying = !isPlaying)
 				soundPlayer.Stop();
 			else
 				soundPlayer.PlayLooping();
 
-			if (isSoundOn)
+			if (isPlaying)
 				image = Properties.Resources.mute;
 			else
 				image = Properties.Resources.unmute;

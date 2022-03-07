@@ -7,24 +7,11 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal class NewGameButton : ButtonObject
+	internal class NewGameButton : TextButton
 	{
-		readonly string text = "New Game";
-
-		readonly Font font = new("tahoma", 12, FontStyle.Bold);
-		readonly Brush brushText = new SolidBrush(Color.Black);
-		readonly Brush brushRect = new SolidBrush(Color.Yellow);
-		readonly StringFormat stringFormat = new()
+		public NewGameButton()
 		{
-			Alignment = StringAlignment.Center,
-			LineAlignment = StringAlignment.Center,
-		};
-
-		public override void Draw(Graphics g)
-		{
-			Rectangle rectangle = new(x, y, width, height);
-			g.FillRectangle(brushRect, rectangle);
-			g.DrawString(text, font, brushText, rectangle, stringFormat);
+			text = "Chơi mới";
 		}
 
 		public override void OnClick(object? sender, EventArgs e)

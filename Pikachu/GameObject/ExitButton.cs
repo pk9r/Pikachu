@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
+	/// <summary>Nút thoát trò chơi.</summary>
 	internal class ExitButton : ImageButton
 	{
 		public ExitButton()

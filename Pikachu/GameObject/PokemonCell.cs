@@ -28,8 +28,8 @@ namespace Pikachu.GameObject
 		}
 
 		/* Đây là kích thước ảnh không nên thay đổi để tránh vỡ ảnh */
-		public static readonly int width = 40;
-		public static readonly int height = 50;
+		/// <summary>Kích thước ô pokemon.</summary>
+		public static readonly Size size = new(40, 50);
 
 		/// <summary>Lấy ảnh đối tượng từ value.</summary>
 		/// <param name="value">The value.</param>
@@ -57,14 +57,16 @@ namespace Pikachu.GameObject
 
 		public override void Draw(Graphics g)
 		{
+			Rectangle rectangle = new(location, size);
+
 			if (image != null)
 			{
-				g.DrawImage(image, x, y, width, height);
+				g.DrawImage(image, rectangle);
 
 				if (isFocus)
-					g.DrawRectangle(penWithFocus, x, y, width, height);
+					g.DrawRectangle(penWithFocus, rectangle);
 				else
-					g.DrawRectangle(penWithoutFocus, x, y, width, height);
+					g.DrawRectangle(penWithoutFocus, rectangle);
 			}
 		}
 

@@ -24,23 +24,24 @@ namespace Pikachu.GameObject
 			Alignment = StringAlignment.Near,
 			LineAlignment = StringAlignment.Center,
 		};
+		readonly int offsetLabel = 60;
 
 		public int totalTime;
 		public int remaining;
 
 		public override void Draw(Graphics g)
 		{
-			Rectangle rectangleLabel = new(x, y, 60, height);
+			Rectangle rectangleLabel = new(location, new(offsetLabel, size.Height));
 			g.DrawString(text, font, brushText, rectangleLabel, stringFormatLabel);
 
-			Rectangle rectangle = new(x + 60, y, width, height);
+			Rectangle rectangle = new(location.X + offsetLabel, location.Y, size.Width - offsetLabel, size.Height);
 			g.DrawRectangle(pen, rectangle);
 
-			int widthFill = width - 1;
+			int widthFill = size.Width - offsetLabel - 1;
 			if (totalTime > 0)
 				widthFill = remaining * widthFill / totalTime;
 
-			g.FillRectangle(brushFill, x + 61, y + 1, widthFill, height - 1);
+			g.FillRectangle(brushFill, location.X + 61, location.Y + 1, widthFill, size.Height - 1);
 			g.DrawString($"{remaining}/{totalTime}", font, brushText, rectangle, stringFormat);
 		}
 

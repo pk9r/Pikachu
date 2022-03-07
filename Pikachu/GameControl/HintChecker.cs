@@ -17,11 +17,6 @@ namespace Pikachu.GameControl
 		public int indexHint1, indexHint2;
 		public bool hint = true;
 
-		public HintChecker()
-		{
-
-		}
-
 		public HintChecker(DataGamePlay dataGamePlay, SelectChecker selectChecker)
 		{
 			this.dataGamePlay = dataGamePlay;
@@ -52,9 +47,10 @@ namespace Pikachu.GameControl
 			}
 			indexHint1 = int.MaxValue;
 			indexHint2 = int.MaxValue;
-			if (dataGamePlay.countShuffle <= 0 && GameControlManagement.Instance.isStarted == false)
-				GameControlManagement.Instance.GameOver();
-			GameControlManagement.Instance.Shuffle();
+
+			// TODO: Này ác quá, cho phép đảo miễn phí đi chứ hết lượt mà thua thì sợ quá (*tin đọc xong xoá*)
+			//GameControlManagement.Instance.GameOver();
+			dataGamePlay.Shuffle();
 		}
 	}
 }

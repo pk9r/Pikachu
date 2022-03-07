@@ -11,7 +11,7 @@ namespace Pikachu.GameObject
 	/// <summary>Đối tượng hiển thị và nhận tương tác với các ô pokemon.</summary>
 	internal class GamePlay : ScreenObject, IClickable, IUpdatable, IUpdateDataLevel
 	{
-		public readonly int width, height;
+		public readonly Size size;
 
 		#region Object Draw
 		readonly Pen penBorder = new(Color.Brown);
@@ -42,25 +42,30 @@ namespace Pikachu.GameObject
 		/// <summary>Khởi tạo GamePlay theo toạ độ.</summary>
 		/// <param name="x">The x.</param>
 		/// <param name="y">The y.</param>
-		public GamePlay(int x, int y)
+		public GamePlay(Point location)
 		{
-			width = GameControlManagement.TOTAL_COLUMNS * PokemonCell.width;
-			height = GameControlManagement.TOTAL_ROWS * PokemonCell.height;
+			size = new(PokemonCell.size.Width * GameControlManagement.TOTAL_COLUMNS,
+				PokemonCell.size.Height * GameControlManagement.TOTAL_ROWS);
 
-			int xBase = this.x = x;
-			int yBase = this.y = y;
+			this.location = location;
+
+			int xBase = location.X;
+			int yBase = location.Y;
 
 			pokemonCells = new PokemonCell[
 				GameControlManagement.TOTAL_ROWS,
 				GameControlManagement.TOTAL_COLUMNS];
 
+			int x, y;
 			for (int i = 0; i < GameControlManagement.TOTAL_ROWS; i++)
 				for (int j = 0; j < GameControlManagement.TOTAL_COLUMNS; j++)
 				{
+					x = xBase + j * PokemonCell.size.Width;
+					y = yBase + i * PokemonCell.size.Height;
+
 					pokemonCells[i, j] = new PokemonCell
 					{
-						x = xBase + j * PokemonCell.width,
-						y = yBase + i * PokemonCell.height,
+						location = new(x, y),
 						row = i,
 						col = j,
 					};
@@ -104,40 +109,7 @@ namespace Pikachu.GameObject
 			UnselectAll();
 		}
 
-		/// <summary>Hiển thị các ô pokemon</summary>
-		/// <param name="g">The g.</param>
-		private void DrawPokemonCells(Graphics g)
-		{
-			foreach (var cell in pokemonCells)
-				cell.Draw(g);
-		}
-
-		/// <summary>Hiển thị border của đối tượng.</summary>
-		/// <param name="g">The g.</param>
-		private void DrawBorder(Graphics g)
-		{
-			g.DrawRectangle(penBorder, x, y, width, height);
-		}
-
-		/// <summary>Vẽ các đường thẳng kết nối cặp pokemon.</summary>
-		/// <param name="g">The g.</param>
-		private void DrawLineConnects(Graphics g)
-		{
-			foreach (var line in lineConnects)
-				line.Draw(g);
-		}
-
-		private void DrawHint(Graphics g)
-		{
-			if (cellHint1 != null && cellHint2 != null)
-			{
-				g.DrawRectangle(penHint, cellHint1.x, cellHint1.y, PokemonCell.width, PokemonCell.height);
-				g.DrawRectangle(penHint, cellHint2.x, cellHint2.y, PokemonCell.width, PokemonCell.height);
-			}
-		}
-
-		/// <summary>Lựa chọn một ô pokemon.</summary>
-		/// <param name="pokemonCell">The pokemon cell.</param>
+		/// <summary>Lựa chọn ô pokemon.</summary>
 		public void SelectCell(PokemonCell? pokemonCell)
 		{
 			if (pokemonCell == null)
@@ -167,6 +139,40 @@ namespace Pikachu.GameObject
 			UnselectAll();
 		}
 
+		/// <summary>Hiển thị các ô pokemon</summary>
+		/// <param name="g">The g.</param>
+		private void DrawPokemonCells(Graphics g)
+		{
+			foreach (var cell in pokemonCells)
+				cell.Draw(g);
+		}
+
+		/// <summary>Hiển thị border của đối tượng.</summary>
+		/// <param name="g">The g.</param>
+		private void DrawBorder(Graphics g)
+		{
+			g.DrawRectangle(penBorder, new(location, size));
+		}
+
+		/// <summary>Vẽ các đường thẳng kết nối cặp pokemon.</summary>
+		/// <param name="g">The g.</param>
+		private void DrawLineConnects(Graphics g)
+		{
+			foreach (var line in lineConnects)
+				line.Draw(g);
+		}
+
+		/// <summary>Vẽ gợi ý.</summary>
+		/// <param name="g">The g.</param>
+		private void DrawHint(Graphics g)
+		{
+			if (cellHint1 != null && cellHint2 != null)
+			{
+				g.DrawRectangle(penHint, new(cellHint1.location, PokemonCell.size));
+				g.DrawRectangle(penHint, new(cellHint2.location, PokemonCell.size));
+			}
+		}
+
 		/// <summary>Bỏ lựa chọn tất cả các ô pokemon.</summary>
 		public void UnselectAll()
 		{
@@ -184,14 +190,12 @@ namespace Pikachu.GameObject
 		}
 
 		/// <summary>Lấy ô pokemon theo toạ độ.</summary>
-		/// <param name="x">The x.</param>
-		/// <param name="y">The y.</param>
 		private PokemonCell? GetPokemonCell(int x, int y)
 		{
-			int row = (y - this.y) / PokemonCell.height;
-			int col = (x - this.x) / PokemonCell.width;
+			int row = (y - location.Y) / PokemonCell.size.Height;
+			int col = (x - location.X) / PokemonCell.size.Width;
 
-			if (x >= this.x && y >= this.y &&
+			if (x >= location.X && y >= location.Y &&
 				row >= 0 && row < GameControlManagement.Instance.dataGamePlay.numOfRows &&
 				col >= 0 && col < GameControlManagement.Instance.dataGamePlay.numOfCols &&
 				pokemonCells[row, col].image != null)

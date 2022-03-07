@@ -7,26 +7,14 @@ using System.Threading.Tasks;
 
 namespace Pikachu.GameObject
 {
-	internal class CustomButton : ButtonObject
+	/// <summary>Nút tuỳ chỉnh màn chơi.</summary>
+	internal class CustomButton : TextButton
 	{
-		readonly string text = "Tuỳ chỉnh";
-
-		readonly Font font = new("tahoma", 12, FontStyle.Bold);
-		readonly Brush brushText = new SolidBrush(Color.Black);
-		readonly Brush brushRect = new SolidBrush(Color.Yellow);
-		readonly StringFormat stringFormat = new()
+		public CustomButton()
 		{
-			Alignment = StringAlignment.Center,
-			LineAlignment = StringAlignment.Center,
-		};
-
-		public override void Draw(Graphics g)
-		{
-			Rectangle rectangle = new(x, y, width, height);
-			g.FillRectangle(brushRect, rectangle);
-			g.DrawString(text, font, brushText, rectangle, stringFormat);
+			text = "Tuỳ chỉnh";
 		}
-
+	
 		public override void OnClick(object? sender, EventArgs e)
 		{
 			CustomForm customForm = new();
@@ -35,7 +23,6 @@ namespace Pikachu.GameObject
 			{
 				GameControlManagement.Instance.NewGame(isLevelCustom: true);
 			}
-
 		}
 	}
 }

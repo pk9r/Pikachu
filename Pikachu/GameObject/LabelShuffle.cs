@@ -8,7 +8,7 @@ namespace Pikachu.GameObject
 {
 	internal class LabelShuffle : ScreenObject
 	{
-		string Text => GameControl.GameControlManagement.Instance.dataGamePlay.countShuffle.ToString();
+		static string Text => GameControl.GameControlManagement.Instance.dataGamePlay.countShuffle.ToString();
 
 		readonly Font font = new("Tahoma", 24, FontStyle.Regular);
 
@@ -16,7 +16,7 @@ namespace Pikachu.GameObject
 
 		public override void Draw(Graphics g)
 		{
-			g.DrawString(Text, font, brush, x, y);
+			g.DrawString(Text, font, brush, location);
 		}
 	}
 }

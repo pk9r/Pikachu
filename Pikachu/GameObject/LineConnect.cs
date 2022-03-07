@@ -31,13 +31,14 @@ namespace Pikachu.GameObject
 			if (!isShow)
 				return;
 
-			int xBase = GameObjectManagement.Instance.gamePlay.x;
-			int yBase = GameObjectManagement.Instance.gamePlay.y;
+			int xBase = GameObjectManagement.Instance.gamePlay.location.X;
+			int yBase = GameObjectManagement.Instance.gamePlay.location.Y;
 
-			int x1 = c1 * PokemonCell.width + PokemonCell.width / 2 + xBase;
-			int y1 = r1 * PokemonCell.height + PokemonCell.height / 2 + yBase;
-			int x2 = c2 * PokemonCell.width + PokemonCell.width / 2 + xBase;
-			int y2 = r2 * PokemonCell.height + PokemonCell.height / 2 + yBase;
+			int x1 = c1 * PokemonCell.size.Width + PokemonCell.size.Width / 2 + xBase;
+			int y1 = r1 * PokemonCell.size.Height + PokemonCell.size.Height / 2 + yBase;
+			int x2 = c2 * PokemonCell.size.Width + PokemonCell.size.Width / 2 + xBase;
+			int y2 = r2 * PokemonCell.size.Height + PokemonCell.size.Height / 2 + yBase;
+
 			g.DrawLine(pen, x1, y1, x2, y2);
 		}
 
