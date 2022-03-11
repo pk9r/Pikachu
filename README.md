@@ -4,6 +4,10 @@
 
 ## Yeu cau .NET 6.0
 
+## Tác giả
+- Lã Minh Phúc
+- Nguyễn Phạm Ngọc Duy
+
 ## Tính năng cơ bản
 
 - [x] Bắt đầu game với bảng trò chơi ngẫu nhiên
